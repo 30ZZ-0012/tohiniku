@@ -1,0 +1,176 @@
+body {
+    margin:0;
+    font-size: 40px;
+}
+
+p {
+    margin: 0;
+}
+
+#main {
+    height: 100%;
+    position: relative;
+}
+
+header {
+    width: 100%;
+    height: 140px;
+    background: teal;
+    /*border-bottom: 3px solid grey;*/
+    display: flex;
+    justify-content: space-around;
+    font-size: 60px;
+    position: relative;
+    color: red;
+}
+.evaluation_image{
+    margin:0 auto;
+    text-align: center;
+}
+.image_con{
+    display: flex;
+    width:100vw;
+    justify-content: center;
+    align-items: center;
+}
+.card {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid grey;
+}
+
+header .date {
+    margin-top: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+header .prev , header .next {
+    margin-top: 20px;
+
+}
+
+.plusBtn {
+    font-size: 40px;
+    color: white;
+    background: red;
+    border-radius: 10px;
+    width: 85px;
+    height: 60px;
+}
+
+.minusBtn {
+    font-size: 40px;
+    color: white;
+    background: blue;
+    border-radius: 10px;
+    width: 85px;
+    height: 60px;
+}
+
+.submitBtn {
+    font-size: 40px;
+    color: white;
+    background: black;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+}
+
+input[type="text"], input[type="number"] {
+    border: 1px solid black;
+    height: 50px;
+}
+
+input#submit_button{
+        font-size: 40px;
+    color: white;
+    background: green;
+    width: 150px;
+    height: 75px;
+}
+
+.name#name_1{
+    color: white;
+    background: purple;
+    width: 270px;
+    height: 60px;
+    text-align: center
+}
+
+.name#name_2{
+    color: white;
+    background: lightgreen;
+    width: 270px;
+    height: 60px;
+    text-align: center
+}
+
+.name#name_3{
+    color: white;
+    background: skyblue;
+    width: 270px;
+    height: 60px;
+    text-align: center
+}
+
+.name#name_4{
+    color: white;
+    background: yellow;
+    width: 270px;
+    height: 60px;
+    text-align: center
+}
+
+.name#name_5{
+    color: white;
+    background: navy;
+    width: 270px;
+    height: 60px;
+    text-align: center
+}
+
+
+.name#name_6{
+    color: white;
+    background: black;
+    width: 270px;
+    height: 60px;
+    text-align: center
+}
+
+
+input[type="number"]{
+    font-size:30px;
+}
+.distance_controler{
+    display: flex;
+}
+
+select{
+    outline:none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    background: none transparent;
+    vertical-align: middle;
+    font-size: inherit;
+    color: inherit;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+}
+select option{
+  background-color: #fff;
+  color: #333;
+}
+select::-ms-expand {
+  display: none;
+}
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #828c9a;
+}

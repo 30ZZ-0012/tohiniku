@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作品</title>
+    <link rel="stylesheet" type="text/css" href="sp.css">
+
+</head>
+<body>
+<header>
+
+    <p class="date">健康メーター＠移動距離</p>
+
+</header>
+
+<div id="main">
+<div class="image_con">
+<img src="<%=@evaluation%>" alt="" class ="evaluation_image">
+</div>
+<canvas id="graph"></canvas>
+
+<% @categories.each_with_index do |category, idx| %>
+    <% total = 0 %>
+    <% category.items.each_with_index do |item, id| %>
+      <% total = total + (item.price ? item.price : 0) * item.count %>
+    <% end %>
+
+     <div class="card">
+        <div class="name" id="name_<%=category.id%>">
+            <%= category.name %>
+        </div>
+        <div class="nedan">
+            <%= total = total %>
+        </div>
+    </div>
+
+
+  <% end %>
+
+</div>
+</body>
+</html>
+<body>
+</body>
+</html>
+
+
+<form action="/create" method="post">
+  <label for="price">距離</label>
+   <input type="number" name="price" id="price">
+  <label for="title"></label>
+   <input type="date" name="time" id="time">
+   <select name="category" id="category">
+     <% @categories.each do |category| %>
+      <option value="<%= category.id %>"><%= category.name %></option>
+     <% end %>
+   </select>
+   <input id="submit_button" type="submit" name="submit" value="追加">
+</form>
+<script src="/assets/js/Chart.js"></script>
+<script>
+  ctx = document.getElementById("graph");
+  ctx.width = 500;
+  clr = ['purple', 'lightgreen', 'lightskyblue', 'yellow', 'navy', 'black', ];
+  var price = [], colors = [], labels = [];
+
+  <% @categories.each_with_index do |category, idx| %>
+    <% total = 0 %>
+    <% category.items.each_with_index do |item, id| %>
+
+      <% total = total + (item.price ? item.price : 0) * item.count %>
+    <% end %>
+    price.push(<%= total %>);
+    labels.push('<%= category.name %>');
+    colors.push(clr[<%= (idx%6) %>]);
+  <% end %>
+    var data = {
+      labels: labels,
+      datasets:[
+        {
+          data: price,
+          backgroundColor: colors
+        }]
+    };
+    var myDoughnut = new Chart(ctx,{
+      type: 'doughnut',
+      data: data,
+      options: { reseponsive: false }
+    });
+</script>
+<% @categories.each do |category, idx| %>
+  <%= idx %>
+ <% end %>
+
+
+
+<% if @category_name.present?  %>
+ <h2><%= @category_name %></h2>
+ <% end %>
+<div>
+  <% total = 0%>
+
+
+  <% @items.each do|item| %>
+   <div>
+   <p><%= item.datetime ? item.datetime.strftime('%Y年%m月%d日') : "" %></p>
+   <p><%= item.category.try(:name) %></p>
+   <% total = total + (item.price ? item.price : 0) * item.count %>
+    <div class="distance_controler"><p><%= (item.price ? item.price : 0)*item.count %>メートル</p>
+    <span>
+     <form action="/plus" method="post">
+       <input type="hidden" name="id" value="<%= item.id %>>">
+       <input class="plusBtn" type="submit" value="+">
+     </form>
+    </span>
+    <span>
+     <form action="/minus" method="post">
+       <input type="hidden" name="id" value="<%= item.id %>>">
+       <input class="minusBtn" type="submit" value="-">
+     </form>
+    </span>
+    </div>
+    <span>
+     <form action="/delete/<%=item.id %>" method="post">
+      <input class="submitBtn" type="submit" value="削除">
+     </form>
+    </span>
+    </div>
+  <% end %>
+</div>
+<div>
+   <p>合計:<%= total %>メートル</p>
+</div>
