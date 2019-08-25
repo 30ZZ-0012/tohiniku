@@ -17,8 +17,6 @@
 <div class="image_con">
 <img src="<%=@evaluation%>" alt="" class ="evaluation_image">
 </div>
-<canvas id="graph"></canvas>
-
 <% @categories.each_with_index do |category, idx| %>
     <% total = 0 %>
     <% category.items.each_with_index do |item, id| %>
@@ -36,6 +34,8 @@
 
 
   <% end %>
+<canvas id="graph"></canvas>
+
 
 </div>
 </body>
@@ -61,7 +61,7 @@
 <script>
   ctx = document.getElementById("graph");
   ctx.width = 500;
-  clr = ['purple', 'lightgreen', 'lightskyblue', 'yellow', 'navy', 'black', ];
+  clr = ['purple', 'green', 'blue', 'red', 'navy', 'black', ];
   var price = [], colors = [], labels = [];
 
   <% @categories.each_with_index do |category, idx| %>
@@ -85,7 +85,9 @@
     var myDoughnut = new Chart(ctx,{
       type: 'doughnut',
       data: data,
-      options: { reseponsive: false }
+      options: { legend: {
+            display:false
+        } }
     });
 </script>
 <% @categories.each do |category, idx| %>
@@ -131,3 +133,11 @@
 <div>
    <p>合計:<%= total %>メートル</p>
 </div>
+
+<% unless session[:user] %>
+  <a href="signin">ログイン</a> <a href="/signup">新規登録</a><br>
+  <h2>未ログイン</h2>
+<% else %>
+  <a href="/signout">ログアウト</a>
+  <h2><%= User.find(session[:user]).mail %>としてログイン<h2>
+<% end %>
