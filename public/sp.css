@@ -187,3 +187,69 @@ input[type="date"] {
   font-size: 25.5px;
   color: #000000;
 }
+
+h2{
+background: #ffffff;
+font-size: 40px;
+text-align: right;
+}
+h2 span{
+float: left;
+}
+
+.sample{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.sample2{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-top: 5px solid #eeeeee;
+}
+
+.sample3{
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+}
+
+.sample4{
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+}
+
+.sample5{
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+}
+
+.sample6{
+    padding-right: 50px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: right;
+
+}
+
+.sample7{
+    padding-top: 40px
+}
+
+.sample8{
+    text-align: right;
+    background-color: #eeffff;
+    color: #000000
+}
+
+.main-container{
+  background-image: url ("/images/kabegami2.jpg");
+  height: 100%;
+  background-size: cover;
+}
