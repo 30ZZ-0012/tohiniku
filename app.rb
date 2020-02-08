@@ -1,7 +1,7 @@
 require 'bundler/setup'
 Bundler.require
 require 'sinatra/reloader' if development?
-require './models/item.rb'
+require './models'
 
 enable :sessions
 
@@ -12,7 +12,7 @@ get '/' do
   @evaluation =""
   # binding.pry
   random = rand(1..5)
-  if getPercentageOfWalk > 0.5
+  if getPercentageOfWalk < 0.4
     if random == 2
     @evaluation = "images/100.jpg"
     else
@@ -34,9 +34,9 @@ post '/create' do
        price: params[:price],
        category_id: params[:category],
        count: 1,
-       datetime: params[:time]
+       datetime: params[:time],
+       color: params[:color]
   })
-
   redirect '/'
 end
 
@@ -67,37 +67,29 @@ post '/renew/:id' do
 end
 
 
-post '/plus' do
-  item = Item.find(params[:id])
-  item.count = item.count + 1
-  item.save
+post '/plus/:id' do
+  count = Item.find_by(id: params[:id])
+  count.price = count.price + 1000
+  count.save
   redirect '/'
 end
 
-post '/minus' do
-  item = Item.find(params[:id])
-  item.count = item.count - 1
-  item.save
+post '/minus/:id' do
+  count = Item.find_by(id: params[:id])
+  count.price = count.price - 1000
+  count.save
+  redirect '/'
+end
+
+post '/delete/:id' do
+  count = Item.find_by(id: params[:id])
+  count.destroy
   redirect '/'
 end
 
 def getPercentageOfWalk
-  other = 0
-  walk = 0
- @categories.each_with_index do |category, idx|
-     total = 0
-     category.items.each_with_index do |item, id|
-
-      total = total + (item.price ? item.price : 0) * item.count
-     end
-    total
-    if category.id == 1
-      walk =total
-    else
-      other += total
-    end
-   end
-   return walk.to_f/other.to_f
+  item = Item.find_by(title:"歩き")
+  return item.price/Item.sum(:price)
 end
 
 get '/signin' do

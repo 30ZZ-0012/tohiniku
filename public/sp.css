@@ -34,7 +34,6 @@ header {
     align-items: center;
 }
 .card {
-    display: flex;
     justify-content: space-between;
     padding-left: 50px;
     padding-right: 50px;
@@ -54,7 +53,7 @@ header .prev , header .next {
 
 }
 
-.plusBtn {
+.plus {
     font-size: 40px;
     color: white;
     background: red;
@@ -63,12 +62,21 @@ header .prev , header .next {
     height: 60px;
 }
 
-.minusBtn {
+.minus {
     font-size: 40px;
     color: white;
     background: blue;
     border-radius: 10px;
     width: 85px;
+    height: 60px;
+}
+
+.delete {
+    font-size: 40px;
+    color: white;
+    background:black;
+    border-radius: 10px;
+    width: 100px;
     height: 60px;
 }
 
@@ -84,6 +92,14 @@ header .prev , header .next {
 input[type="text"], input[type="number"] {
     border: 1px solid black;
     height: 50px;
+}
+
+input[type="title"]{
+    border: 1px solid black;
+    height: 50px;
+    width: 120px;
+    font-size: 40px;
+  color: #000000;
 }
 
 input#submit_button{
@@ -145,7 +161,7 @@ input#submit_button{
 
 
 input[type="number"]{
-    font-size:30px;
+    font-size:35px;
 }
 .distance_controler{
     display: flex;
@@ -176,7 +192,7 @@ select:-moz-focusring {
 }
 
 
-input[type="date"] {
+input[type="text"] {
   position: relative;
   padding: 0 10px;
   width: 200px;
@@ -184,7 +200,7 @@ input[type="date"] {
   border: 15;
   background: transparent;
   box-sizing: border-box;
-  font-size: 25.5px;
+  font-size: 35px;
   color: #000000;
 }
 
@@ -252,4 +268,9 @@ float: left;
   background-image: url ("/images/kabegami2.jpg");
   height: 100%;
   background-size: cover;
+  background-color: white;
+}
+
+.form{
+    display: inline-block;
 }

@@ -13,141 +13,79 @@
 
 </header>
 <div class="main-container">
- <div id="main">
- <div class="image_con">
- <img src="<%=@evaluation%>" alt="" class ="evaluation_image">
- </div>
- <% @categories.each_with_index do |category, idx| %>
-     <% total = 0 %>
-     <% category.items.each_with_index do |item, id| %>
-       <% total = total + (item.price ? item.price : 0) * item.count %>
-     <% end %>
-
-      <div class="card">
-         <div class="name" id="name_<%=category.id%>">
-             <%= category.name %>
-         </div>
-         <div class="nedan">
-             <%= total = total %>
-         </div>
-     </div>
-
-
-  <% end %>
- <canvas id="graph"></canvas>
-
-
- </div>
- </body>
- </html>
- <body>
- </body>
- </html>
-
-
- <div class="sample2">
- <form action="/create" method="post">
-  <div class="sample3">
-   <label for="price">距離</label>
-    <input type="number" name="price" id="price">
+  <div id="main">
+  <div class="image_con">
+  <img src="<%=@evaluation%>" alt="" class ="evaluation_image">
   </div>
-  <div class="sample4">
-   <label for="title">月</label>
-    <input type="date" name="time" id="time">
+
+
+  <ul>
+    <% @items.each do |item| %>
+
+    <li>
+            <span style = "color:<%= item.color %>"> <%= item.title %> </span>
+              <span style = "margin-left:350px">
+                <form action="/plus/<%= item.id %>" method="post" class="form">
+                  <input type="submit" value="+" class="plus">
+                </form>
+                  <span><%= item.price %></span>
+                <form action="/minus/<%= item.id %>" method="post" class="form">
+                  <input type="submit" value="-" class="minus">
+                </form>
+                <form action="/delete/<%= item.id %>" method="post" class="form">
+                  <input type="submit" value="削除" class="delete">
+                </form>
+              </span>
+    </li>
+    <% end %>
+  </ul>
+
+
+
   </div>
-    <select name="category" id="category">
-  <div class="sample5">
-      <% @categories.each do |category| %>
-       <option value="<%= category.id %>"><%= category.name %></option>
-      <% end %>
-    </select>
-  </div>
-  <div class="sample6">
+
+
+  <form action="/create" method="post">
+
+    <label for="price">距離</label>
+      <input type="number" name="price" id="price">
+
+    <label for="title">名前</label>
+      <input type="text" name="title" id="title">
+
+    <label for="color">色</label>
+      <select name="color">
+      <option value="red">赤色</option>
+      <option value="blue">青色</option>
+      <option value="green">緑色</option>
+      <option value="orange">橙色</option>
+      <option value="black">黒色</option>
+      </select>
+
     <input id="submit_button" type="submit" name="submit" value="追加">
- </form>
- </div>
- <script src="/assets/js/Chart.js"></script>
- <script>
-   ctx = document.getElementById("graph");
-   ctx.width = 500;
-   clr = ['purple', 'green', 'blue', 'red', 'navy', 'black', ];
-   var price = [], colors = [], labels = [];
 
-   <% @categories.each_with_index do |category, idx| %>
-     <% total = 0 %>
-     <% category.items.each_with_index do |item, id| %>
+  </form>
 
-       <% total = total + (item.price ? item.price : 0) * item.count %>
-     <% end %>
-     price.push(<%= total %>);
-     labels.push('<%= category.name %>');
-     colors.push(clr[<%= (idx%6) %>]);
-   <% end %>
-     var data = {
-       labels: labels,
-       datasets:[
-         {
-           data: price,
-           backgroundColor: colors
-         }]
-     };
-     var myDoughnut = new Chart(ctx,{
-       type: 'doughnut',
-       data: data,
-       options: { legend: {
-             display:false
-         } }
-     });
- </script>
- <% @categories.each do |category, idx| %>
-   <%= idx %>
+
+
+  <% if @category_name.present?  %>
+    <h2><%= @category_name %></h2>
+    <% end %>
+  <div>
+    <% total = Item.sum(:price) %>
+
+
+
+        <p style="text-align:right;">合計:<%= total %>メートル</p>
+      </div>
+  <div class="sample7">
+  <% unless session[:user] %>
+    <a href="signin">ログイン</a> <a href="/signup">新規登録</a><br>
+    <h2><span></span>未ログイン</h2>
+  <% else %>
+    <a href="/signout">ログアウト</a>
+    <h2><span></span><%=  %>としてログイン<h2>
   <% end %>
-
-
-
- <% if @category_name.present?  %>
-  <h2><%= @category_name %></h2>
-  <% end %>
- <div>
-   <% total = 0%>
-
-
-  <div class="sample">
-   <% @items.each do|item| %>
-    <p><%= item.datetime ? item.datetime.strftime('%Y年%m月%d日') : "" %></p>
-    <p><%= item.category.try(:name) %></p>
-    <% total = total + (item.price ? item.price : 0) * item.count %>
-     <div class="distance_controler"><p><%= (item.price ? item.price : 0)*item.count %>メートル</p>
-     <span>
-      <form action="/plus" method="post">
-       <input type="hidden" name="id" value="<%= item.id %>>">
-       <input class="plusBtn" type="submit" value="+">
-      </form>
-     </span>
-     <span>
-      <form action="/minus" method="post">
-        <input type="hidden" name="id" value="<%= item.id %>>">
-        <input class="minusBtn" type="submit" value="-">
-      </form>
-     </span>
-     </div>
-     <span>
-      <form action="/delete/<%=item.id %>" method="post">
-       <input class="submitBtn" type="submit" value="削除">
-      </form>
-     </span>
-   <% end %>
   </div>
-    <div class="sample8">
-      <p>合計:<%= total %>メートル</p>
-    </div>
- <div class="sample7">
- <% unless session[:user] %>
-   <a href="signin">ログイン</a> <a href="/signup">新規登録</a><br>
-   <h2><span></span>未ログイン</h2>
- <% else %>
-   <a href="/signout">ログアウト</a>
-   <h2><span></span><%= User.find(session[:user]).mail %>としてログイン<h2>
- <% end %>
- </div>
+  </div>
 </div>

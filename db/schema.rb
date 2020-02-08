@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_25_024449) do
+ActiveRecord::Schema.define(version: 2020_02_08_070816) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2019_08_25_024449) do
     t.integer "category_id"
     t.integer "count"
     t.datetime "datetime"
+    t.string "color"
   end
 
   create_table "users", force: :cascade do |t|
